@@ -1,0 +1,10 @@
+.idea/
+.mono/
+.import/
+.DS_Store
+
+# TODO: remove this after asset licenses validated
+*.png
+*.wav
+*.mp3
+*.ogg

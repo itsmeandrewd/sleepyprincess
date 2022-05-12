@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Princess/Princess.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Music/TalkingCuteChiptune.mp3" type="AudioStream" id=2]
+[ext_resource path="res://World.cs" type="Script" id=3]
+[ext_resource path="res://bg.png" type="Texture" id=4]
+[ext_resource path="res://Platform/PlatformManager.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Princess/Assets/long_kyah.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Coffee/Coffee.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=8]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="CanvasLayer" instance=ExtResource( 8 )]
+margin_bottom = 93.0
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
+
+[node name="Princess" parent="." instance=ExtResource( 1 )]
+position = Vector2( 240, 137 )
+Facing = 1
+
+[node name="PlatformManager" parent="." instance=ExtResource( 5 )]
+position = Vector2( 101, 169 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_base_scale = Vector2( 0.3, 0.3 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 409, 0 )
+
+[node name="bg" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 4 )
+centered = false
+
+[node name="DeathKyah" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="Coffee" parent="." instance=ExtResource( 7 )]
+position = Vector2( 307, 153 )
+
+[node name="SpeedTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="DeathCamera" type="Camera2D" parent="."]
+limit_top = 0
+limit_bottom = 270
+
+[node name="ScoreTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="SpeedTimer" to="." method="_on_SpeedTimer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
