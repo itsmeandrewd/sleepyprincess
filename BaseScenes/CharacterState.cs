@@ -1,44 +1,43 @@
 using Godot;
 
-namespace SleepyPrincess.BaseScenes
+namespace SleepyPrincess.BaseScenes;
+
+public partial class CharacterState : Node
 {
-    public partial class CharacterState : Node
+    [Signal]
+    public delegate void CharacterStateTravelEventHandler(string newState);
+
+    [Signal]
+    public delegate void CharacterStateTravelPreviousEventHandler();
+
+    protected Character Parent;
+
+    public override void _Ready()
     {
-        [Signal]
-        public delegate void CharacterStateTravelEventHandler(string newState);
+        base._Ready();
+        Connect(nameof(CharacterStateTravel), new Callable(GetParent(), "_on_CharacterState_Travel"));
+        Connect(nameof(CharacterStateTravelPrevious), new Callable(GetParent(), "_on_CharacterState_TravelPrevious"));
+    }
 
-        [Signal]
-        public delegate void CharacterStateTravelPreviousEventHandler();
+    protected void Travel<T>() where T : CharacterState
+    {
+        TravelState(typeof(T).FullName);
+    }
 
-        protected Character Parent;
+    private void TravelPrevious()
+    {
+        EmitSignal(nameof(CharacterStateTravelPrevious));
+        QueueFree();
+    }
 
-        public override void _Ready()
-        {
-            base._Ready();
-            Connect(nameof(CharacterStateTravel), new Callable(GetParent(), "_on_CharacterState_Travel"));
-            Connect(nameof(CharacterStateTravelPrevious), new Callable(GetParent(), "_on_CharacterState_TravelPrevious"));
-        }
+    private void TravelState(string newState)
+    {
+        EmitSignal(nameof(CharacterStateTravel), newState);
+        QueueFree();
+    }
 
-        protected void Travel<T>() where T : CharacterState
-        {
-            TravelState(typeof(T).FullName);
-        }
-
-        protected void TravelPrevious()
-        {
-            EmitSignal(nameof(CharacterStateTravelPrevious));
-            QueueFree();
-        }
-
-        private void TravelState(string newState)
-        {
-            EmitSignal(nameof(CharacterStateTravel), newState);
-            QueueFree();
-        }
-
-        public void SetParent(Character parentCharacter)
-        {
-            Parent = parentCharacter;
-        }
+    public void SetParent(Character parentCharacter)
+    {
+        Parent = parentCharacter;
     }
 }

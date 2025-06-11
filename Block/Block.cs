@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace SleepyPrincess.Block;
 
 public partial class Block : StaticBody2D
 {
@@ -31,16 +32,16 @@ public partial class Block : StaticBody2D
         _sprite.Frame = (int) blockType;
     }
 
-    public void _on_VisibilityNotifier2D_screen_entered()
+    private void _on_VisibilityNotifier2D_screen_entered()
     {
         _wasOnScreen = true;
     }
 
-    public void _on_VisibilityNotifier2D_screen_exited()
+    private void _on_VisibilityNotifier2D_screen_exited()
     {
         if (_wasOnScreen)
         {
-            EmitSignal(nameof(BlockRemoved));
+            EmitSignal(SignalName.BlockRemoved);
             QueueFree();
         }
     }

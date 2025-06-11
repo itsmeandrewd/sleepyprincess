@@ -34,7 +34,7 @@ namespace SleepyPrincess.Platform
             AddChild(platformInstance);
             platformInstance.Connect(nameof(Platform.PlatformRemoved), new Callable(this, nameof(_on_PlatformRemoved)));
             platformInstance.GlobalPosition = position;
-            _lastPlatformEdgeX = position.X + (Block.Width * length);
+            _lastPlatformEdgeX = position.X + (Block.Block.Width * length);
             _lastPlatformY = position.Y;
             _numPlatforms += 1;
         }
@@ -46,11 +46,11 @@ namespace SleepyPrincess.Platform
             var yDirection = GD.Randi() % 2 == 0 ? 1 : -1;
             var ySpacing = GD.RandRange(MinYSpacing, MaxYSpacing);
 
-            var nextXPos = _lastPlatformEdgeX + (xSpacing * Block.Width);
-            var nextYPos = _lastPlatformY + (ySpacing * Block.Width * yDirection);
+            var nextXPos = _lastPlatformEdgeX + (xSpacing * Block.Block.Width);
+            var nextYPos = _lastPlatformY + (ySpacing * Block.Block.Width * yDirection);
             if (nextYPos < 10 || nextYPos > 250)
             {
-                nextYPos = _lastPlatformY + (ySpacing * Block.Width * yDirection * -1);
+                nextYPos = _lastPlatformY + (ySpacing * Block.Block.Width * yDirection * -1);
             }
 
             var nextPosition = new Vector2((float)nextXPos, (float)nextYPos);

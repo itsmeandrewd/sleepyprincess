@@ -32,24 +32,24 @@ namespace SleepyPrincess.Princess
             HorizontalMove((float) Direction.Right, delta);
         }
 
-        public void _on_VisibilityNotifier2D_screen_exited()
+        private void _on_VisibilityNotifier2D_screen_exited()
         {
             if (Position.Y > 100)
             {
-                var lastCameraPosition = _camera.GlobalPosition;
-                EmitSignal(nameof(Die), lastCameraPosition);
+                Vector2 lastCameraPosition = _camera.GlobalPosition;
+                EmitSignal(SignalName.Die, lastCameraPosition);
                 QueueFree();
             }
         }
 
-        public void _on_Area2D_area_entered(Area2D area)
+        private void _on_Area2D_area_entered(Area2D area)
         {
-            var body = area.GetParent();
-            if (body is Coffee)
+            Node body = area.GetParent();
+            if (body is Coffee.Coffee)
             {
                 body.QueueFree();
                 MaxSpeed += 10;
-                EmitSignal(nameof(DrankCoffee));
+                EmitSignal(SignalName.DrankCoffee);
             }
         }
 

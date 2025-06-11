@@ -1,6 +1,6 @@
 using Godot;
-using System;
-using SleepyPrincess.Princess;
+
+namespace SleepyPrincess.Coffee;
 
 public partial class Coffee : StaticBody2D
 {

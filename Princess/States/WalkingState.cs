@@ -1,27 +1,26 @@
 using Godot;
 using SleepyPrincess.BaseScenes;
 
-namespace SleepyPrincess.Princess.States
-{
-    public partial class WalkingState : PrincessState
-    {
-        // Called when the node enters the scene tree for the first time.
-        public override void _Ready()
-        {
-            base._Ready();
-            PrincessScene.Animator.Play("Walking");
-            PrincessScene.CanDoubleJump = true;
-        }
+namespace SleepyPrincess.Princess.States;
 
-        public override void _PhysicsProcess(double delta)
+public partial class WalkingState : PrincessState
+{
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        base._Ready();
+        PrincessScene.Animator.Play("Walking");
+        PrincessScene.CanDoubleJump = true;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+        PrincessScene.MoveRight((float)delta);
+        if (Input.IsActionPressed("jump"))
         {
-            base._PhysicsProcess(delta);
-            PrincessScene.MoveRight((float)delta);
-            if (Input.IsActionPressed("jump"))
-            {
-                PrincessScene.Jump((float)delta);
-                Travel<JumpingState>();
-            }
+            PrincessScene.Jump((float)delta);
+            Travel<JumpingState>();
         }
     }
 }

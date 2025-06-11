@@ -38,9 +38,13 @@ namespace SleepyPrincess
 
             var initialPlatformPosition = new Vector2(_princess.GlobalPosition.X, _princess.GlobalPosition.Y + 32);
             _platformManager.SpawnPlatform(initialPlatformPosition, 30, false);
+
+            _princess.Connect(Princess.Princess.SignalName.Die, new Callable(this, nameof(_on_Princess_Die)));
+            _princess.Connect(Princess.Princess.SignalName.DrankCoffee,
+                new Callable(this, nameof(_on_Princess_DrankCoffee)));
         }
 
-        public void _on_Princess_Die (Vector2 position)
+        private void _on_Princess_Die (Vector2 position)
         {
             _scoreTimer.Stop();
             _gui.Enabled = false;
@@ -52,18 +56,18 @@ namespace SleepyPrincess
             SaveHighScore();
         }
 
-        public void _on_SpeedTimer_timeout()
+        private void _on_SpeedTimer_timeout()
         {
             _princess.MaxSpeed -= 1.1f;
             _gui.AwakeProgress = _princess.MaxSpeed;
         }
 
-        public void _on_Princess_DrankCoffee()
+        private void _on_Princess_DrankCoffee()
         {
             _gui.AwakeProgress =_princess.MaxSpeed;
         }
 
-        public void _on_ScoreTimer_timeout()
+        private void _on_ScoreTimer_timeout()
         {
             if (!IsInstanceValid(_princess))
             {
