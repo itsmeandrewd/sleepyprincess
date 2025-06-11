@@ -67,6 +67,15 @@ namespace SleepyPrincess
             _gui.AwakeProgress =_princess.MaxSpeed;
         }
 
+        public override void _Input(InputEvent @event)
+        {
+            base._Input(@event);
+            if (@event.IsActionPressed("quit"))
+            {
+                GetTree().Quit();
+            }
+        }
+
         private void _on_ScoreTimer_timeout()
         {
             if (!IsInstanceValid(_princess))

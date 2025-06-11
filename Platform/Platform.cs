@@ -19,7 +19,7 @@ public partial class Platform : Node2D
         
     private const int MinBlockLength = 3;
     private const int MaxBlockLength = 8;
-    private const int PercentChanceCoffee = 5;
+    private const int PercentChanceCoffee = 15;
     private int _blocksRemaining;
 
     // Called when the node enters the scene tree for the first time.

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bvdlk4m3m2do8"]
 
-[ext_resource type="PackedScene" path="res://Princess/Princess.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dow7negnonj4t" path="res://Princess/Princess.tscn" id="1"]
 [ext_resource type="AudioStream" uid="uid://cw48qwxmwx1mi" path="res://Music/TalkingCuteChiptune.mp3" id="2"]
 [ext_resource type="Script" uid="uid://cb2h6opeu8wdp" path="res://World.cs" id="3"]
 [ext_resource type="Texture2D" uid="uid://ded4nykmoosek" path="res://bg.png" id="4"]
