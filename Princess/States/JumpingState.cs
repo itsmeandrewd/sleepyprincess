@@ -2,7 +2,7 @@ using Godot;
 
 namespace SleepyPrincess.Princess.States
 {
-    public class JumpingState : PrincessState
+    public partial class JumpingState : PrincessState
     {
         // Declare member variables here. Examples:
         // private int a = 2;
@@ -16,7 +16,7 @@ namespace SleepyPrincess.Princess.States
             PrincessScene.SoundEffectPlayer.Play();
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             base._Process(delta);
 
@@ -29,13 +29,13 @@ namespace SleepyPrincess.Princess.States
             }
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
             base._PhysicsProcess(delta);
-            PrincessScene.MoveRight(delta);
+            PrincessScene.MoveRight((float)delta);
             if (PrincessScene.CanDoubleJump && Input.IsActionJustPressed("jump"))
             {
-                PrincessScene.Jump(delta);
+                PrincessScene.Jump((float)delta);
                 PrincessScene.CanDoubleJump = false;
             }
         }

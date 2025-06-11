@@ -2,29 +2,21 @@ using Godot;
 
 namespace SleepyPrincess.BaseScenes
 {
-    public class CharacterState : Node
+    public partial class CharacterState : Node
     {
         [Signal]
-        public delegate void CharacterStateTravel(string newState);
+        public delegate void CharacterStateTravelEventHandler(string newState);
 
         [Signal]
-        public delegate void CharacterStateTravelPrevious();
+        public delegate void CharacterStateTravelPreviousEventHandler();
 
         protected Character Parent;
 
         public override void _Ready()
         {
             base._Ready();
-            Connect(
-                nameof(CharacterStateTravel),
-                GetParent(),
-                nameof(CharacterStateMachine._on_CharacterState_Travel)
-            );
-            Connect(
-                nameof(CharacterStateTravelPrevious),
-                GetParent(),
-                nameof(CharacterStateMachine._on_CharacterState_TravelPrevious)
-            );
+            Connect(nameof(CharacterStateTravel), new Callable(GetParent(), "_on_CharacterState_Travel"));
+            Connect(nameof(CharacterStateTravelPrevious), new Callable(GetParent(), "_on_CharacterState_TravelPrevious"));
         }
 
         protected void Travel<T>() where T : CharacterState

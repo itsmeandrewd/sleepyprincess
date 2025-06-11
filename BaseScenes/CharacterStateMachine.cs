@@ -4,7 +4,7 @@ using Godot;
 
 namespace SleepyPrincess.BaseScenes
 {
-    public class CharacterStateMachine : Node
+    public partial class CharacterStateMachine : Node
     {
         private Stack<Type> _stateHistory;
         public CharacterState CurrentState { get; private set; }

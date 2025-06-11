@@ -2,7 +2,7 @@ using Godot;
 
 namespace SleepyPrincess.BaseScenes
 {
-    public class Character : KinematicBody2D
+    public partial class Character : CharacterBody2D
     {
         [Export]
         public int Acceleration = 512;
@@ -13,25 +13,25 @@ namespace SleepyPrincess.BaseScenes
         [Export]
         public float Friction = 0.25f;
 
-        public Sprite SpriteNode { get; private set; }
+        public Sprite2D SpriteNode { get; private set; }
 
         public AnimationPlayer Animator { get; private set; }
 
         protected Vector2 MotionVector = Vector2.Zero;
         public CharacterStateMachine StateMachine { get; private set; }
         
-        public CollisionShape2D CollisionShape;
+        public CollisionShape2D CollisionShape3D;
 
         public override void _Ready()
         {
             base._Ready();
-            SpriteNode = (Sprite) GetNode("Sprite");
+            SpriteNode = (Sprite2D) GetNode("Sprite2D");
             Animator = (AnimationPlayer) GetNode("Animator");
             StateMachine = (CharacterStateMachine) GetNode("StateMachine");
-            CollisionShape = (CollisionShape2D) GetNode("CollisionShape");
+            CollisionShape3D = (CollisionShape2D) GetNode("CollisionShape3D");
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
             base._PhysicsProcess(delta);
             ApplyMovement(); 
@@ -46,11 +46,11 @@ namespace SleepyPrincess.BaseScenes
         {
             var currentState = StateMachine.CurrentState;
             var signalHandler = $"_on_{signal}";
-            if (!IsConnected(signal, currentState, signalHandler))
+            if (!IsConnected(signal, new Callable(currentState, signalHandler)))
             {
-                Connect(signal, currentState, signalHandler);
+                Connect(signal, new Callable(currentState, signalHandler));
             }
-            EmitSignal(signal, args);
+            //EmitSignal(signal, args);
         }
     }
 }

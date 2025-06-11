@@ -3,7 +3,7 @@ using SleepyPrincess.BaseScenes;
 
 namespace SleepyPrincess.Princess.States
 {
-    public class WalkingState : PrincessState
+    public partial class WalkingState : PrincessState
     {
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
@@ -13,13 +13,13 @@ namespace SleepyPrincess.Princess.States
             PrincessScene.CanDoubleJump = true;
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
             base._PhysicsProcess(delta);
-            PrincessScene.MoveRight(delta);
+            PrincessScene.MoveRight((float)delta);
             if (Input.IsActionPressed("jump"))
             {
-                PrincessScene.Jump(delta);
+                PrincessScene.Jump((float)delta);
                 Travel<JumpingState>();
             }
         }

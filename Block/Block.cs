@@ -1,13 +1,13 @@
 using Godot;
 using System;
 
-public class Block : StaticBody2D
+public partial class Block : StaticBody2D
 {
     [Signal]
-    public delegate void BlockRemoved();
+    public delegate void BlockRemovedEventHandler();
     
     
-    private Sprite _sprite;
+    private Sprite2D _sprite;
     private bool _wasOnScreen;
 
     public const int Width = 8;
@@ -23,7 +23,7 @@ public class Block : StaticBody2D
     public override void _Ready()
     {
         base._Ready();
-        _sprite = (Sprite) GetNode("Sprite");
+        _sprite = (Sprite2D) GetNode("Sprite2D");
     }
 
     public void SetBlockType(BlockTypes blockType)

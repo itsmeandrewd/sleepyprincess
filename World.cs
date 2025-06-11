@@ -1,10 +1,10 @@
-using System;
 using Godot;
 using SleepyPrincess.Platform;
+using FileAccess = Godot.FileAccess;
 
 namespace SleepyPrincess
 {
-    public class World : Node2D
+    public partial class World : Node2D
     {
         private Princess.Princess _princess;
         private PlatformManager _platformManager;
@@ -15,7 +15,7 @@ namespace SleepyPrincess
         private Timer _scoreTimer;
 
         private float _princessBaseSpeed;
-        private File _scoreFile;
+        private FileAccess _scoreFile;
         private float _lastPrincessX;        
 
         private const string ScoreFilePath = "user://score.sav";
@@ -32,12 +32,11 @@ namespace SleepyPrincess
             _scoreTimer = (Timer) GetNode("ScoreTimer");
             
             _gui = (GUI) GetNode("CanvasLayer/GUI");
-            _scoreFile = new File();
-            _lastPrincessX = _princess.Position.x;
+            _lastPrincessX = _princess.Position.X;
             ResetGame();
             LoadHighScore();
 
-            var initialPlatformPosition = new Vector2(_princess.GlobalPosition.x, _princess.GlobalPosition.y + 32);
+            var initialPlatformPosition = new Vector2(_princess.GlobalPosition.X, _princess.GlobalPosition.Y + 32);
             _platformManager.SpawnPlatform(initialPlatformPosition, 30, false);
         }
 
@@ -49,7 +48,7 @@ namespace SleepyPrincess
             _bgMusic.VolumeDb -= 10;
             _deathKyah.Play();
             _deathCamera.GlobalPosition = position;
-            _deathCamera.Current = true;
+            _deathCamera.MakeCurrent();
             SaveHighScore();
         }
 
@@ -71,14 +70,14 @@ namespace SleepyPrincess
                 return;
             }
             
-            GD.Print(_princess.Position.x - _lastPrincessX);
-            _gui.Score += (int)(_princess.Position.x - _lastPrincessX) / 10;
+            GD.Print(_princess.Position.X - _lastPrincessX);
+            _gui.Score += (int)(_princess.Position.X - _lastPrincessX) / 10;
             if (_gui.Score >= _gui.HiScore)
             {
                 _gui.HiScore = _gui.Score;
             }
 
-            _lastPrincessX = _princess.Position.x;
+            _lastPrincessX = _princess.Position.X;
         }
 
         private void ResetGame()
@@ -90,15 +89,15 @@ namespace SleepyPrincess
 
         private void LoadHighScore()
         {
-            if (!_scoreFile.FileExists(ScoreFilePath))
+            if (!FileAccess.FileExists(ScoreFilePath))
             {
-                _scoreFile.Open(ScoreFilePath, File.ModeFlags.Write);
+                _scoreFile = FileAccess.Open(ScoreFilePath, FileAccess.ModeFlags.Write);
                 _scoreFile.Store32(0);
                 _gui.HiScore = 0;
             }
             else
             {
-                _scoreFile.Open(ScoreFilePath, File.ModeFlags.Read);
+                _scoreFile = FileAccess.Open(ScoreFilePath, FileAccess.ModeFlags.Read);
                 _gui.HiScore = (int) _scoreFile.Get32();
             }
             _scoreFile.Close();
@@ -106,7 +105,7 @@ namespace SleepyPrincess
 
         private void SaveHighScore()
         {
-            _scoreFile.Open(ScoreFilePath, File.ModeFlags.Write);
+            _scoreFile = FileAccess.Open(ScoreFilePath, FileAccess.ModeFlags.Write);
             _scoreFile.Store32((uint) _gui.HiScore);
             _scoreFile.Close();
         }

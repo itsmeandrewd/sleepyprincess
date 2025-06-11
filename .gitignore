@@ -1,5 +1,6 @@
 .idea/
 .mono/
+.godot/
 .import/
 .DS_Store
 
@@ -8,3 +9,4 @@
 *.wav
 *.mp3
 *.ogg
+*.uid

@@ -3,7 +3,7 @@ using Godot;
 
 namespace SleepyPrincess.BaseScenes
 {
-    public class PlatformCharacter : Character
+    public partial class PlatformCharacter : Character
     {
         [Export]
         public float Gravity = 200f;
@@ -24,29 +24,30 @@ namespace SleepyPrincess.BaseScenes
 
         public bool IsFalling { get; private set; }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
-            ApplyGravity(delta);
-            IsFalling = !IsOnFloor() && Position.y > _lastYPos;
-            _lastYPos = Position.y;
+            ApplyGravity((float)delta);
+            IsFalling = !IsOnFloor() && Position.Y > _lastYPos;
+            _lastYPos = Position.Y;
             base._PhysicsProcess(delta);
         }
 
         protected override void ApplyMovement()
         {
-            MotionVector = MoveAndSlide(MotionVector, Vector2.Up);
+            Velocity = MotionVector;
+            MoveAndSlide();
         }
 
         protected void ApplyGravity(float delta)
         {
-            MotionVector.y += Gravity * delta;
-            MotionVector.y = Mathf.Min(MotionVector.y, JumpPower);
+            MotionVector.Y += Gravity * delta;
+            MotionVector.Y = Mathf.Min(MotionVector.Y, JumpPower);
         }
 
         public void HorizontalMove(float direction, float delta)
         {
-            MotionVector.x += direction * Acceleration * delta;
-            MotionVector.x = Mathf.Clamp(MotionVector.x, -MaxSpeed, MaxSpeed);
+            MotionVector.X += direction * Acceleration * delta;
+            MotionVector.X = Mathf.Clamp(MotionVector.X, -MaxSpeed, MaxSpeed);
 
             Direction newFacing = GetDirectionFromFloat(direction);
             if (newFacing != Facing)
@@ -65,13 +66,13 @@ namespace SleepyPrincess.BaseScenes
         public virtual void Jump(float delta)
         {
             var yForce = JumpPower * delta * 100;
-            MotionVector.y -= yForce;
-            MotionVector.y = Mathf.Max(MotionVector.y, -yForce);
+            MotionVector.Y -= yForce;
+            MotionVector.Y = Mathf.Max(MotionVector.Y, -yForce);
         }
 
         public void StopMoving()
         {
-            MotionVector.x = Mathf.Lerp(MotionVector.x, 0, Friction);
+            MotionVector.X = Mathf.Lerp(MotionVector.X, 0, Friction);
         }
 
         public virtual void Flip()

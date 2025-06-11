@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/jump_02.wav-4773e2e5c501bf5e02e61478c3c79c4a.sample"
+type="AudioStreamWAV"
+uid="uid://chiy8m0mdng3g"
+path="res://.godot/imported/jump_02.wav-4773e2e5c501bf5e02e61478c3c79c4a.sample"
 
 [deps]
 
 source_file="res://Princess/Assets/jump_02.wav"
-dest_files=[ "res://.import/jump_02.wav-4773e2e5c501bf5e02e61478c3c79c4a.sample" ]
+dest_files=["res://.godot/imported/jump_02.wav-4773e2e5c501bf5e02e61478c3c79c4a.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0

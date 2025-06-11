@@ -1,8 +1,8 @@
-﻿using SleepyPrincess.BaseScenes;
+using SleepyPrincess.BaseScenes;
 
 namespace SleepyPrincess.Princess.States
 {
-    public class PrincessState : CharacterState
+    public partial class PrincessState : CharacterState
     {
         protected Princess PrincessScene;
 

@@ -4,13 +4,13 @@ using SleepyPrincess.Princess.States;
 
 namespace SleepyPrincess.Princess
 {
-    public class Princess : PlatformCharacter
+    public partial class Princess : PlatformCharacter
     {
         [Signal]
-        public delegate void Die(Vector2 position);
+        public delegate void DieEventHandler(Vector2 position);
 
         [Signal]
-        public delegate void DrankCoffee();
+        public delegate void DrankCoffeeEventHandler();
         
         public AudioStreamPlayer SoundEffectPlayer;
         private Camera2D _camera;
@@ -34,7 +34,7 @@ namespace SleepyPrincess.Princess
 
         public void _on_VisibilityNotifier2D_screen_exited()
         {
-            if (Position.y > 100)
+            if (Position.Y > 100)
             {
                 var lastCameraPosition = _camera.GlobalPosition;
                 EmitSignal(nameof(Die), lastCameraPosition);

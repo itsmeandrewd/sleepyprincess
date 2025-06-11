@@ -2,7 +2,7 @@ using Godot;
 
 namespace SleepyPrincess.Princess.States
 {
-    public class FallingState : PrincessState
+    public partial class FallingState : PrincessState
     {
         public override void _Ready()
         {
@@ -10,7 +10,7 @@ namespace SleepyPrincess.Princess.States
             PrincessScene.Animator.Play("Falling");
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             base._Process(delta);
             
@@ -21,13 +21,13 @@ namespace SleepyPrincess.Princess.States
             }
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
             base._PhysicsProcess(delta);
-            PrincessScene.MoveRight(delta);
+            PrincessScene.MoveRight((float)delta);
             if (PrincessScene.CanDoubleJump && Input.IsActionJustPressed("jump"))
             {
-                PrincessScene.Jump(delta);
+                PrincessScene.Jump((float)delta);
                 PrincessScene.CanDoubleJump = false;
             }
         }

@@ -3,7 +3,7 @@ using Godot;
 
 namespace SleepyPrincess.Platform
 {
-    public class PlatformManager : Node2D
+    public partial class PlatformManager : Node2D
     {
         private PackedScene _platformScene;
         private float _lastPlatformEdgeX;
@@ -23,7 +23,7 @@ namespace SleepyPrincess.Platform
 
         public void SpawnPlatform(Vector2 position, int length = 0, bool spawnCoffees = true)
         {
-            var platformInstance = (Platform) _platformScene.Instance();
+            var platformInstance = (Platform) _platformScene.Instantiate();
             platformInstance.BlockLength = length;
             platformInstance.CanSpawnCoffee = spawnCoffees;
             if (length < 1)
@@ -32,19 +32,19 @@ namespace SleepyPrincess.Platform
             }
 
             AddChild(platformInstance);
-            platformInstance.Connect(nameof(Platform.PlatformRemoved), this, nameof(_on_PlatformRemoved));
+            platformInstance.Connect(nameof(Platform.PlatformRemoved), new Callable(this, nameof(_on_PlatformRemoved)));
             platformInstance.GlobalPosition = position;
-            _lastPlatformEdgeX = position.x + (Block.Width * length);
-            _lastPlatformY = position.y;
+            _lastPlatformEdgeX = position.X + (Block.Width * length);
+            _lastPlatformY = position.Y;
             _numPlatforms += 1;
         }
 
         public void SpawnNext()
         {
             GD.Randomize();
-            var xSpacing = (int) GD.RandRange(MinXSpacing, MaxXSpacing);
+            var xSpacing = GD.RandRange(MinXSpacing, MaxXSpacing);
             var yDirection = GD.Randi() % 2 == 0 ? 1 : -1;
-            var ySpacing = (int) GD.RandRange(MinYSpacing, MaxYSpacing);
+            var ySpacing = GD.RandRange(MinYSpacing, MaxYSpacing);
 
             var nextXPos = _lastPlatformEdgeX + (xSpacing * Block.Width);
             var nextYPos = _lastPlatformY + (ySpacing * Block.Width * yDirection);
@@ -53,11 +53,11 @@ namespace SleepyPrincess.Platform
                 nextYPos = _lastPlatformY + (ySpacing * Block.Width * yDirection * -1);
             }
 
-            var nextPosition = new Vector2(nextXPos, nextYPos);
+            var nextPosition = new Vector2((float)nextXPos, (float)nextYPos);
             SpawnPlatform(nextPosition);
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             base._Process(delta);
             if (_numPlatforms < MaxPlatforms)

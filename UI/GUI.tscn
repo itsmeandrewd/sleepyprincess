@@ -1,36 +1,36 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UI/UI_Font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://UI/lifebar_bg.png" type="Texture" id=2]
-[ext_resource path="res://UI/lifebar_fill.png" type="Texture" id=3]
+[ext_resource path="res://UI/UI_Font.tres" type="FontFile" id=1]
+[ext_resource path="res://UI/lifebar_bg.png" type="Texture2D" id=2]
+[ext_resource path="res://UI/lifebar_fill.png" type="Texture2D" id=3]
 [ext_resource path="res://UI/GUI.cs" type="Script" id=4]
 
 [node name="GUI" type="MarginContainer"]
-margin_right = 540.0
-margin_bottom = 202.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+offset_right = 540.0
+offset_bottom = 202.0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Rows" type="VBoxContainer" parent="."]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 520.0
-margin_bottom = 182.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 520.0
+offset_bottom = 182.0
 
 [node name="AwakeRow" type="HBoxContainer" parent="Rows"]
-margin_right = 500.0
-margin_bottom = 6.0
+offset_right = 500.0
+offset_bottom = 6.0
 
 [node name="AwakeLabel" type="Label" parent="Rows/AwakeRow"]
-margin_right = 30.0
-margin_bottom = 6.0
-custom_fonts/font = ExtResource( 1 )
+offset_right = 30.0
+offset_bottom = 6.0
+theme_override_fonts/font = ExtResource( 1 )
 text = "Awake"
 align = 1
 valign = 1
@@ -39,13 +39,13 @@ __meta__ = {
 }
 
 [node name="AwakeContainer" type="MarginContainer" parent="Rows/AwakeRow"]
-margin_left = 34.0
-margin_right = 121.0
-margin_bottom = 6.0
+offset_left = 34.0
+offset_right = 121.0
+offset_bottom = 6.0
 
-[node name="Bar" type="TextureProgress" parent="Rows/AwakeRow/AwakeContainer"]
-margin_right = 87.0
-margin_bottom = 6.0
+[node name="Bar" type="TextureProgressBar" parent="Rows/AwakeRow/AwakeContainer"]
+offset_right = 87.0
+offset_bottom = 6.0
 allow_greater = true
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 3 )
@@ -55,37 +55,37 @@ stretch_margin_top = 6
 stretch_margin_right = 7
 
 [node name="ScoreRow" type="HBoxContainer" parent="Rows"]
-margin_top = 10.0
-margin_right = 500.0
-margin_bottom = 16.0
+offset_top = 10.0
+offset_right = 500.0
+offset_bottom = 16.0
 
 [node name="Label" type="Label" parent="Rows/ScoreRow"]
-margin_right = 30.0
-margin_bottom = 6.0
-custom_fonts/font = ExtResource( 1 )
+offset_right = 30.0
+offset_bottom = 6.0
+theme_override_fonts/font = ExtResource( 1 )
 text = "Score"
 
 [node name="Text" type="Label" parent="Rows/ScoreRow"]
-margin_left = 34.0
-margin_right = 40.0
-margin_bottom = 6.0
-custom_fonts/font = ExtResource( 1 )
+offset_left = 34.0
+offset_right = 40.0
+offset_bottom = 6.0
+theme_override_fonts/font = ExtResource( 1 )
 text = "0"
 
 [node name="HiScoreRow" type="HBoxContainer" parent="Rows"]
-margin_top = 25.0
-margin_right = 500.0
-margin_bottom = 26.0
+offset_top = 25.0
+offset_right = 500.0
+offset_bottom = 26.0
 
 [node name="Label" type="Label" parent="Rows/HiScoreRow"]
-margin_right = 48.0
-margin_bottom = 6.0
-custom_fonts/font = ExtResource( 1 )
+offset_right = 48.0
+offset_bottom = 6.0
+theme_override_fonts/font = ExtResource( 1 )
 text = "Hi-Score"
 
 [node name="Text" type="Label" parent="Rows/HiScoreRow"]
-margin_left = 52.0
-margin_right = 58.0
-margin_bottom = 6.0
-custom_fonts/font = ExtResource( 1 )
+offset_left = 52.0
+offset_right = 58.0
+offset_bottom = 6.0
+theme_override_fonts/font = ExtResource( 1 )
 text = "0"

@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-public class GUI : MarginContainer
+public partial class GUI : MarginContainer
 {
-    private TextureProgress _awakeBar;
+    private TextureProgressBar _awakeBar;
     private Label _scoreText;
     private Label _hiScoreText;
         
@@ -48,7 +48,7 @@ public class GUI : MarginContainer
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _awakeBar = (TextureProgress) GetNode("Rows/AwakeRow/AwakeContainer/Bar");
+        _awakeBar = (TextureProgressBar) GetNode("Rows/AwakeRow/AwakeContainer/Bar");
         _scoreText = (Label) GetNode("Rows/ScoreRow/Text");
         _hiScoreText = (Label) GetNode("Rows/HiScoreRow/Text");
     }

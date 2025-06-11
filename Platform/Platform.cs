@@ -3,10 +3,10 @@ using static System.Linq.Enumerable;
 
 namespace SleepyPrincess.Platform
 {
-    public class Platform : Node2D
+    public partial class Platform : Node2D
     {
         [Signal]
-        public delegate void PlatformRemoved();
+        public delegate void PlatformRemovedEventHandler();
         
         private PackedScene _blockScene;
         private PackedScene _coffeeScene;
@@ -31,7 +31,7 @@ namespace SleepyPrincess.Platform
             
             if (RandomizeLength)
             {
-                BlockLength = (int) GD.RandRange(MinBlockLength, MaxBlockLength);
+                BlockLength = GD.RandRange(MinBlockLength, MaxBlockLength);
             }
             _blocksRemaining = BlockLength;
 
@@ -43,11 +43,11 @@ namespace SleepyPrincess.Platform
 
         private void AddBlock(int index)
         {
-            var blockInstance = (Block) _blockScene.Instance();
+            var blockInstance = (Block)_blockScene.Instantiate();
                             
             AddChild(blockInstance);
-            blockInstance.Connect(nameof(Block.BlockRemoved), this, nameof(_on_BlockRemoved));
-            blockInstance.Position = new Vector2(blockInstance.Position.x + (index * Block.Width), blockInstance.Position.y);
+            blockInstance.Connect(nameof(Block.BlockRemoved), new Callable(this, nameof(_on_BlockRemoved)));
+            blockInstance.Position = new Vector2(blockInstance.Position.X + (index * Block.Width), blockInstance.Position.Y);
             
             if (index == 0)
             {
@@ -64,9 +64,9 @@ namespace SleepyPrincess.Platform
             GD.Randomize();
             if (CanSpawnCoffee && GD.RandRange(0, 100) < PercentChanceCoffee)
             {
-                var coffeeInstance = (Coffee) _coffeeScene.Instance();
+                var coffeeInstance = (Coffee) _coffeeScene.Instantiate();
                 AddChild(coffeeInstance);
-                coffeeInstance.Position = new Vector2(blockInstance.Position.x, blockInstance.Position.y - 10);
+                coffeeInstance.Position = new Vector2(blockInstance.Position.X, blockInstance.Position.Y - 10);
             }
         }
 
