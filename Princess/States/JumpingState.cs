@@ -33,10 +33,10 @@ public partial class JumpingState : PrincessState
     {
         base._PhysicsProcess(delta);
         PrincessScene.MoveRight((float)delta);
-        if (PrincessScene.CanDoubleJump && Input.IsActionJustPressed("jump"))
+        if (PrincessScene.CanDoubleJump() && Input.IsActionJustPressed("jump"))
         {
             PrincessScene.Jump((float)delta);
-            PrincessScene.CanDoubleJump = false;
+            PrincessScene.JumpCount += 1;
         }
     }
 }

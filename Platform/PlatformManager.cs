@@ -32,7 +32,7 @@ namespace SleepyPrincess.Platform
             }
 
             AddChild(platformInstance);
-            platformInstance.Connect(nameof(Platform.PlatformRemoved), new Callable(this, nameof(_on_PlatformRemoved)));
+            platformInstance.Connect(Platform.SignalName.PlatformRemoved, new Callable(this, nameof(_on_PlatformRemoved)));
             platformInstance.GlobalPosition = position;
             _lastPlatformEdgeX = position.X + (Block.Block.Width * length);
             _lastPlatformY = position.Y;

@@ -75,7 +75,7 @@ public partial class Platform : Node2D
         _blocksRemaining -= 1;
         if (_blocksRemaining == 0)
         {
-            EmitSignal(nameof(PlatformRemoved));
+            EmitSignal(SignalName.PlatformRemoved);
             QueueFree();
         }
     }

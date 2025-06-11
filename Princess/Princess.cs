@@ -15,7 +15,7 @@ namespace SleepyPrincess.Princess
         public AudioStreamPlayer SoundEffectPlayer;
         private Camera2D _camera;
 
-        public bool CanDoubleJump = true;
+        public int JumpCount = 0;
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
@@ -25,6 +25,11 @@ namespace SleepyPrincess.Princess
             StateMachine.SetState<WalkingState>();
             Facing = Direction.Right;
             _camera = (Camera2D) GetNode("Camera2D");
+        }
+
+        public bool CanDoubleJump()
+        {
+            return JumpCount < 3;
         }
 
         public void MoveRight(float delta)

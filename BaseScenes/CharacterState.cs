@@ -15,8 +15,8 @@ public partial class CharacterState : Node
     public override void _Ready()
     {
         base._Ready();
-        Connect(nameof(CharacterStateTravel), new Callable(GetParent(), "_on_CharacterState_Travel"));
-        Connect(nameof(CharacterStateTravelPrevious), new Callable(GetParent(), "_on_CharacterState_TravelPrevious"));
+        Connect(SignalName.CharacterStateTravel, new Callable(GetParent(), "_on_CharacterState_Travel"));
+        Connect(SignalName.CharacterStateTravelPrevious, new Callable(GetParent(), "_on_CharacterState_TravelPrevious"));
     }
 
     protected void Travel<T>() where T : CharacterState
@@ -26,13 +26,13 @@ public partial class CharacterState : Node
 
     private void TravelPrevious()
     {
-        EmitSignal(nameof(CharacterStateTravelPrevious));
+        EmitSignal(SignalName.CharacterStateTravelPrevious);
         QueueFree();
     }
 
     private void TravelState(string newState)
     {
-        EmitSignal(nameof(CharacterStateTravel), newState);
+        EmitSignal(SignalName.CharacterStateTravel, newState);
         QueueFree();
     }
 

@@ -17,6 +17,7 @@ public partial class FallingState : PrincessState
             
         if (PrincessScene.IsOnFloor())
         {
+            PrincessScene.JumpCount = 0;
             Travel<WalkingState>();
         }
     }
@@ -25,10 +26,10 @@ public partial class FallingState : PrincessState
     {
         base._PhysicsProcess(delta);
         PrincessScene.MoveRight((float)delta);
-        if (PrincessScene.CanDoubleJump && Input.IsActionJustPressed("jump"))
+        if (PrincessScene.CanDoubleJump() && Input.IsActionJustPressed("jump"))
         {
             PrincessScene.Jump((float)delta);
-            PrincessScene.CanDoubleJump = false;
+            PrincessScene.JumpCount += 1;
         }
     }
 }
